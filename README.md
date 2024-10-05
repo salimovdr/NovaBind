@@ -6,7 +6,9 @@ Here we demonstrate the performance of NovaBind as we predicted the data in the 
 ## Environment
 We used a server with a GPU running Ubuntu 20.04.6. To set up the environment, please use the following command:
 
-> conda env create -f environment.yml
+```
+conda env create -f environment.yml
+```
 
 Don't forget to install the necessary GPU drivers in the environment. We have commented out the lines for driver installation based on our hardware.
 
