@@ -41,13 +41,13 @@ print("All test data are converted to csv's")
 
 # merge PBM's and split to folds
 df = merge_pbm()
-k_fold_split(df, exp='pbm')
+k_fold_split(df, exp='PBM')
 print('PBM are splitted to folds')
 
 # merge HTS's and split to folds
 sp.run('unpigz -f hts/*.gz', shell=True)
 df = merge_hts().sample(frac=1).reset_index(drop=True)
-k_fold_split(df, exp='hts')
+k_fold_split(df, exp='HTS')
 print('HTS are splitted to folds')
 
 # removing junk files
