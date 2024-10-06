@@ -1,7 +1,7 @@
 # NovaBind
 Salimov and Frolov Laboratory — participants in the international [Ibis](https://ibis.autosome.org) competition for predicting transcription factor binding levels to DNA sequences. We took part in predicting on genome sequences, based on artificial data.  More details about the architecture and methods used can be found in [Google Document](https://clck.ru/3Ddv7i).
 
-Here we demonstrate the performance of NovaBind as we predicted the data in the competition. Due to time constraints, you may notice some 'oddities', such as a different number of models in the ensemble for various TFs. This will be addressed in future versions of <b>NovaBind</b>.
+Here we demonstrate the performance of **NovaBind** as we predicted the data in the competition. Due to time constraints, you may notice some 'oddities', such as a different number of models in the ensemble for various TFs. This will be addressed in future versions of <b>NovaBind</b>.
 
 ## Environment
 We used a server with a GPU running Ubuntu 20.04.6. To set up the environment, please use the following command:
