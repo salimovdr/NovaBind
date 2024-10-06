@@ -13,6 +13,3 @@ def set_device(device=0):
     os.environ['CUDA_VISIBLE_DEVICES'] = str(device)
     for gpu in tf.config.list_physical_devices('GPU'):
         tf.config.experimental.set_memory_growth(gpu, True)
-
-def set_log_level(level=2):
-    os.environ['TF_CPP_MIN_LOG_LEVEL'] = str(level)
