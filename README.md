@@ -59,10 +59,16 @@ The model weights are saved in the `models_PBM` and `models_HTS` folders, respec
 As with the training mode, please run the second command after the first command has completed:
 
 ```
-python make_predict --type_exp PBM
+python make_predict.py --type_exp PBM
 ```
 ```
-python make_predict --type_exp HTS
+python make_predict.py --type_exp HTS
 ```
 
-As a result of predictions on different models, the sum of the predictions is calculated and min-max scaling is applied. The prediction results are saved on Google Drive.
+As a result of predictions on different models, the sum of the predictions is calculated and min-max scaling is applied. To merge the prediction results, run the script:
+
+```
+The command will be here.
+```
+
+The prediction results are saved on Google Drive.
