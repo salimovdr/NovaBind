@@ -10,7 +10,17 @@ We used a server with a GPU running Ubuntu 20.04.6. To set up the environment, p
 conda env create -f environment.yml
 ```
 
-Don't forget to install the necessary GPU drivers in the environment. We have commented out the lines for driver installation based on our hardware.
-
 ## Input data
-You can find the input data on the [Ibis site](https://ibis.autosome.org/download_data/final). The archive is too large, so we are not attaching it here. However, we have prepared test data to verify the correct execution of <b>NovaBind</b> training and prediction.
+You can find the input data on the [Ibis site](https://ibis.autosome.org/download_data/final). The archive is too large, so we are not attaching it here. However, we have prepared test data to verify the correct execution of <b>NovaBind</b> training and prediction. Please download the archive, unzip it, and place the `data` folder into the root folder where all the scripts from the repository are located.
+
+## Training repeoduction
+
+### Data preprocessing
+*Step 1.* It is necessary to extract the files and convert them to a unified .csv format. For future model ensembling, we will immediately split the data into folds. All unnecessary and temporary files are deleted, leaving only the `folds_PBM` and `folds_HTS` directories with the necessary data. 
+
+To run the script that does this, execute the following command in bash:
+
+```
+python prep_data.py
+```
+
