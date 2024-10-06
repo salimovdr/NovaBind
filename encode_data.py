@@ -37,7 +37,7 @@ for exp in ['pbm', 'hts']:
 
 
 # one-hot encoding of seconday disciplines test set
-for exp in ['HTS']:#['PBM', 'HTS']:
+for exp in ['PBM', 'HTS']:
     df = pd.read_csv(f'test/{exp}.csv')
     X = df.seq
     X = (x for seq in X for x in (seq, complement(seq)))
