@@ -1,12 +1,12 @@
 # NovaBind
-Salimov and Frolov Laboratory — participants in the international [Ibis](https://ibis.autosome.org) competition for predicting transcription factor binding levels to DNA sequences. We took part in predicting on genome sequences, based on artificial data.  More details about the architecture and methods used can be found in [google-document](https://clck.ru/3Ddv7i).
+Salimov and Frolov Laboratory — participants in the international [Ibis](https://ibis.autosome.org) competition for predicting transcription factor binding levels to DNA sequences. We took part in predicting on genome sequences, based on artificial data.  More details about the architecture and methods used can be found in [Google Document](https://clck.ru/3Ddv7i).
 
 Here we demonstrate the performance of NovaBind as we predicted the data in the competition. Due to time constraints, you may notice some 'oddities', such as a different number of models in the ensemble for various TFs. This will be addressed in future versions of <b>NovaBind</b>.
 
 ## Environment
 We used a server with a GPU running Ubuntu 20.04.6. To set up the environment, please use the following command:
 
-```
+```bash
 conda env create -f environment.yml
 ```
 
@@ -20,13 +20,13 @@ You can find the input data on the [Ibis site](https://ibis.autosome.org/downloa
 
 To run the script that does this, execute the following command in bash:
 
-```
+```bash
 python prep_data.py
 ```
 
 **Step 2.** We are ready to split the folds into training and validation sets. DNA sequences are encoded using one-hot encoding. The complementary sequences added to the data. For the data from the GHTS and CHS experiments, sequence segmentation is performed using a sliding window (with strides of 1 and 9). These actions are performed in the `encode_data.py` script:
 
-```
+```bash
 python encode_data.py
 ```
 
@@ -36,10 +36,10 @@ python encode_data.py
 
 We recommend running the following two commands in sequence, with the second one delayed until the first training stage is complete.
 
-```
+```bash
 python parallel_training.py --type_exp PBM
 ```
-```
+```bash
 python parallel_training.py --type_exp HTS
 ```
 
@@ -58,16 +58,14 @@ The model weights are saved in the `models_PBM` and `models_HTS` folders, respec
 
 If you want to run predictions based on PBM or HTS in parallel, please specify the device number to perform the calculations on:
 
-```
+```bash
 python make_predict.py --device 0 --type_exp PBM
-```
-```
 python make_predict.py --device 1 --type_exp HTS
 ```
 
 As a result of predictions on different models, the sum of the predictions is calculated and min-max scaling is applied. To merge the prediction results, run the script:
 
-```
+```bash
 The command will be here.
 ```
 
