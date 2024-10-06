@@ -22,19 +22,6 @@ def process_chunk(chunk_file, w, s):
 
     np.save(chunk_file.replace('.csv', '.npy'), X_test)
 
-
-def combine(path, type_exp, w, s, count_chunks=32):
-    combined_data = []
-    
-    for i in range(32):
-        file_path = f'{path}/part_{i}.npy'
-        data_part = np.load(file_path)
-        combined_data.append(data_part)
-    final_data = np.concatenate(combined_data)
-    
-    np.save(f'test/{type_exp}_w{w}s{s}_combined.npy', final_data)
-
-
 def cut_sequences(type_exp, w, s):
     folder = f'{type_exp.upper()}_w{w}s{s}'
     os.makedirs(folder, exist_ok=True)
@@ -53,6 +40,5 @@ def cut_sequences(type_exp, w, s):
     with Manager() as manager:
         with Pool(32) as p:
             p.starmap(process_chunk, [(chunk_file, w, s) for chunk_file in chunk_files])
-        combine(path=folder, type_exp=type_exp, w=w, s=s)
         
-        sp.run(f"rm -r {folder}", shell=True)
+        sp.run(f"rm {folder}/*.csv", shell=True)

@@ -7,7 +7,6 @@ from dna_processing import (encode,
 from sliding_window import cut_sequences
 
 
-
 def encode_folds(path, n_folds=3):
     dfs = [pd.read_csv(f'{path}/fold_{i}.csv') for i in range(n_folds)]
 
@@ -44,11 +43,10 @@ for exp in ['PBM', 'HTS']:
     X = np.array([encode(seq) for seq in X], dtype=np.float16)
     np.save(f'test/{exp}.npy', X)
     print(f'{exp} test set are encoded')
-    
+
 # one-hot encoding of primary discipline test set
 # with sliding window sliding (with strides 1 and 9)
 for exp in ['GHTS', 'CHS']:
-    stride_and_window = [(1, 60), (9, 58)] if exp == 'GHTS' else [(9, 58)]
-    for s, w in stride_and_window:
+    for s, w in [(9, 58)]:
         cut_sequences(exp, w, s)
         print(f'Slides (window {w}, stide {s}) of {exp} sequences are encoded')
