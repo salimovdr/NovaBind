@@ -16,7 +16,7 @@ You can find the input data on the [Ibis site](https://ibis.autosome.org/downloa
 ## Reproduction
 
 ### Data preprocessing
-**Step 1.** It is necessary to extract the files and convert them to a unified .csv format. For future model ensembling, we will immediately split the data into folds. All unnecessary and temporary files are deleted, leaving only the `folds_PBM`, `folds_HTS` and `test` directories with the necessary data. 
+**Step 1.** It is necessary to extract the files and convert them to a unified .csv format. For future model ensembling, we will immediately split the data into folds. The `folds_PBM`, `folds_HTS` and `test` directories with the necessary data are created. 
 
 To run the script that does this, execute the following command in bash:
 
