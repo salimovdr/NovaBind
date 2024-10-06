@@ -11,7 +11,7 @@ conda env create -f environment.yml
 ```
 
 ## Input data
-You can find the input data on the [Ibis site](https://ibis.autosome.org/download_data/final). The archives is too large, so we are not attaching it here. Please download the archives, unzip it, and place the `data` folder into the root folder where all the scripts from the repository are located.
+You can find the input data on the [Ibis site](https://ibis.autosome.org/download_data/final). The archives is too large, so we are not attaching it here. Please download the archives, unzip its, and place the `data` folder into the root folder where all the scripts from the repository are located.
 
 ## Reproduction
 
@@ -56,13 +56,13 @@ The model weights are saved in the `models_PBM` and `models_HTS` folders, respec
 | CHS        | PBM and HTS      | Primary      |
 | HTS        | HTS              | Secondary    |
 
-As with the training mode, please run the second command after the first command has completed:
+If you want to run predictions based on PBM or HTS in parallel, please specify the device number to perform the calculations on:
 
 ```
-python make_predict.py --type_exp PBM
+python make_predict.py --device 0 --type_exp PBM
 ```
 ```
-python make_predict.py --type_exp HTS
+python make_predict.py --device 1 --type_exp HTS
 ```
 
 As a result of predictions on different models, the sum of the predictions is calculated and min-max scaling is applied. To merge the prediction results, run the script:
