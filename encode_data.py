@@ -30,10 +30,10 @@ def encode_folds(path, n_folds=3):
             np.save(f'{path}/fold{i}/Y_{subset}.npy', Y)
 
 # one-hot encoding of train set folds
-for exp in ['pbm', 'hts']:
+for exp in ['PBM', 'HTS']:
     path = f'folds_{exp}'
     encode_folds(path)
-    print(f'{exp.upper()} folds are compiled and encoded')
+    print(f'{exp)} folds are compiled and encoded')
 
 
 # one-hot encoding of seconday disciplines test set
