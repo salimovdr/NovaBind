@@ -11,7 +11,7 @@ conda env create -f environment.yml
 ```
 
 ## Input data
-You can find the input data on the [Ibis site](https://ibis.autosome.org/download_data/final). The archive is too large, so we are not attaching it here. However, we have prepared test data to verify the correct execution of <b>NovaBind</b> training and prediction. Please download the archive, unzip it, and place the `data` folder into the root folder where all the scripts from the repository are located.
+You can find the input data on the [Ibis site](https://ibis.autosome.org/download_data/final). The archive is too large, so we are not attaching it here. Please download the archive, unzip it, and place the `data` folder into the root folder where all the scripts from the repository are located.
 
 ## Training repeoduction
 
