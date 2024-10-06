@@ -68,5 +68,3 @@ As a result of predictions on different models, the sum of the predictions is ca
 ```bash
 get_results.py
 ```
-
-The prediction results are saved on Google Drive.
