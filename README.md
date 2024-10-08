@@ -66,5 +66,5 @@ python make_predict.py --device 1 --type_exp HTS
 As a result of predictions on different models, the sum of the predictions is calculated and min-max scaling is applied. To merge the prediction results, run the script:
 
 ```bash
-get_results.py
+python get_results.py
 ```
