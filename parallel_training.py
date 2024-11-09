@@ -23,16 +23,12 @@ else:
     print("No GPU available, exiting...")
     exit(1)
 
-epochs = 500
-patience = 60
-batch_size = 983
 
-original_file = f'f0s0d0_original_{type_exp}.py'
+original_file = f'original_{type_exp}.py'
 
-if type_exp == 'PBM':
-    tasks = [(fold, seed) for fold in range(3) for seed in range(3)]
-else:
-    tasks = [(0, 0), (2, 2)]
+
+tasks = [(fold, seed) for fold in range(3) for seed in range(3)]
+
 
 def create_and_run_script(fold, seed, gpu_id):
     new_file = f'f{fold}s{seed}d{gpu_id}_{type_exp}.py'

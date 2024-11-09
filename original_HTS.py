@@ -9,6 +9,8 @@ from architecture import build_model
 from keras.callbacks import EarlyStopping
 from architecture import CosineAnnealingScheduler, TQDMProgressBar
 
+from keras.losses import CategoricalCrossentropy
+
 f = 0
 fold = f'fold{f}'
 
@@ -22,11 +24,11 @@ set_seed(s)
 
 epochs = 500
 patience = 60
-batch_size = 983
+batch_size = 16000
 
 
-X_train, X_val, Y_train, Y_val = read_dataset(path=f'folds_PBM/{fold}', type_exp='PBM')
-model = build_model(output_shape=7, loss='mse')
+X_train, X_val, Y_train, Y_val = read_dataset(path=f'folds_HTS/{fold}', type_exp='HTS')
+model = build_model(output_shape=8, loss=CategoricalCrossentropy(from_logits=True))
 
 callbacks = [
     CosineAnnealingScheduler(),
@@ -42,7 +44,7 @@ history = model.fit(X_train, Y_train,
                     callbacks=callbacks,
                     verbose=0)
 
-if not os.path.exists('models_PBM'):
-    os.makedirs('models_PBM')
+if not os.path.exists('models_HTS'):
+    os.makedirs('models_HTS')
     
-model.save_weights(f'models_PBM/{fold}_{seed}.keras')
+model.save_weights(f'models_HTS/{fold}_{seed}.keras')

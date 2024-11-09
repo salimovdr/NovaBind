@@ -13,7 +13,7 @@ import gc
 
 _models = {
     'PBM': [(i, j) for i in range(3) for j in range(3)],
-    'HTS': [(0, 0), (2, 2)],
+    'HTS': [(i, j) for i in range(3) for j in range(3)],
 }
 
 _prots = {
@@ -24,8 +24,8 @@ _prots = {
 }
 
 _pexp_ws = {
-    'GHTS': (58, 9),
-    'CHS': (58, 9),
+    'GHTS': (60, 1),
+    'CHS': (60, 1),
 }
 
 
