@@ -27,18 +27,18 @@ def cut_sequences(type_exp, w, s):
     os.makedirs(folder, exist_ok=True)
     df = pd.read_csv(f'test/{type_exp}.csv')
     
-    chunk_size = len(df) // 32
+    chunk_size = len(df) // 64
 
-    for i in range(32):
+    for i in range(64):
         start_index = i * chunk_size
-        end_index = (i + 1) * chunk_size if i < 31 else len(df)
+        end_index = (i + 1) * chunk_size if i < (64 - 1) else len(df)
         df_chunk = df[start_index:end_index]
         df_chunk.to_csv(f'{folder}/part_{i}.csv', index=False)
     
-    chunk_files = [f'{folder}/part_{i}.csv' for i in range(32)]
+    chunk_files = [f'{folder}/part_{i}.csv' for i in range(64)]
     
     with Manager() as manager:
-        with Pool(32) as p:
+        with Pool(64) as p:
             p.starmap(process_chunk, [(chunk_file, w, s) for chunk_file in chunk_files])
         
         sp.run(f"rm {folder}/*.csv", shell=True)
