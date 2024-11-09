@@ -45,8 +45,8 @@ for exp in ['PBM', 'HTS']:
     print(f'{exp} test set are encoded')
 
 # one-hot encoding of primary discipline test set
-# with sliding window sliding (with strides 1, 3, and 9)
+# with sliding window sliding (with stride 1 and window 60)
 for exp in ['GHTS', 'CHS']:
-    for s, w in [(1, 60), (3, 58), (9, 58)]:
+    for s, w in [(1, 60)]:
         cut_sequences(exp, w, s)
         print(f'Slides (window {w}, stide {s}) of {exp} sequences are encoded')
