@@ -1,5 +1,5 @@
 # NovaBind
-Salimov and Frolov Laboratory — winners in the international [Ibis](https://ibis.autosome.org) competition for predicting transcription factor binding levels to DNA sequences. We took part in predicting on genome sequences, based on artificial data. More details about the architecture and methods used can be found in [Google Document](https://clck.ru/3Ddv7i).
+The Salimov and Frolov Laboratory — winners in the international [Ibis](https://ibis.autosome.org) competition for predicting transcription factor binding levels to DNA sequences. We participated in predictions on genome sequences, utilizing synthetic data. More details about the architecture and methods used can be found in this [Google Document](https://clck.ru/3Ddv7i).
 
 Here we demonstrate the performance of **NovaBind** as we predicted the data in the competition.
 
@@ -11,12 +11,12 @@ conda env create -f environment.yml
 ```
 
 ## Input data
-You can find the input data on the [Ibis site](https://ibis.autosome.org/download_data/final). The archives is too large, so we are not attaching it here. Please download the archives, unzip its, and place the `data` folder into the root folder where all the scripts from the repository are located.
+You can find the input data on the [Ibis site](https://ibis.autosome.org/download_data/final). The archives is too large, so we are not attaching it here. Please download it, unzip it, and place the `data` folder in the root directory where all the repository scripts are located.
 
 ## Reproduction
 
 ### Data preprocessing
-**Step 1.** It is necessary to extract the files and convert them to a unified .csv format. For future model ensembling, we will immediately split the data into folds. The `folds_PBM`, `folds_HTS` and `test` directories with the necessary data are created. 
+**Step 1.** It is necessary to extract the files and convert them to a unified .csv format. For future model ensembling, we immediately split the data into folds. The `folds_PBM`, `folds_HTS` and `test` directories with the necessary data are created. 
 
 To run the script that does this, execute the following command in bash:
 
@@ -24,7 +24,7 @@ To run the script that does this, execute the following command in bash:
 python prep_data.py
 ```
 
-**Step 2.** We are ready to split the folds into training and validation sets. DNA sequences are encoded using one-hot encoding. The complementary sequences added to the data. For the data from the GHTS and CHS experiments, sequence segmentation is performed using a sliding window (with strides are equal 1). These actions are performed in the `encode_data.py` script:
+**Step 2.** We are ready to split the folds into training and validation sets. DNA sequences are encoded using one-hot encoding. The complementary sequences are added to the data. For the data from the GHTS and CHS experiments, sequence segmentation is performed using a sliding window with stride of 1. These actions are performed in the `encode_data.py` script:
 
 ```bash
 python encode_data.py
@@ -32,7 +32,7 @@ python encode_data.py
 
 ### Training
 
-**Step 3.** To start training, use the script `parallel_training.py`. The training process is same for the different types of experimrnt: for PBM and HTS experiments, three repetitions with seed = 0, 1, and 2 are run for each of the three folds. To choose the training mode, specify the argument --type_exp, which can take the values 'PBM' or 'HTS'. Note that training runs in parallel on the available graphics cards. In the both cases, if fewer than 9 graphics cards are available, all available devices will be used, and the tasks will be queued.
+**Step 3.** To start training, use the script `parallel_training.py`. The training process is the same for different types of experiments: for PBM and HTS experiments, three repetitions with seeds 0, 1, and 2 are run for each of the three folds. To specify the training mode, set the argument --type_exp, which can be either 'PBM' or 'HTS'. Note that training runs in parallel on the available graphics cards.  In both cases, if fewer than 9 GPUs are available, all available devices will be used, and tasks will be queued.
 
 We recommend running the following two commands in sequence, with the second one delayed until the first training stage is complete.
 
