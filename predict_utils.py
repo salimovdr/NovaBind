@@ -69,7 +69,7 @@ def make_primary_prediction(model, exp, out_shape):
         for f, s in _models[exp]:
             predict = np.empty((0, out_shape), np.float32)
 
-            for i in trange(32):
+            for i in trange(64):
                 X_test = np.load(f'{pexp}_w{window}s{stride}/part_{i}.npy')
                 X_test = X_test.astype(np.float32) / 4
                 X_test = tf.convert_to_tensor(X_test, dtype=tf.float32)
