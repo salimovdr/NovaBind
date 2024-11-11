@@ -14,4 +14,4 @@ df.to_csv('predict_CHS.tsv', sep='\t')
 
 sp.run('rm predict_*_on_*.tsv', shell=True)
 
-sp.run('pigz --best *.tsv')
+sp.run('pigz --best *.tsv', shell=True)

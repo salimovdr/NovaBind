@@ -22,7 +22,7 @@ set_seed(s)
 
 epochs = 500
 patience = 60
-batch_size = 1000
+batch_size = 16000
 
 
 X_train, X_val, Y_train, Y_val = read_dataset(path=f'folds_PBM/{fold}', type_exp='PBM')

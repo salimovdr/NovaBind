@@ -76,7 +76,7 @@ def make_primary_prediction(model, exp, out_shape):
 
                 model.load_weights(f'models_{exp}/fold{f}_seed{s}.keras')
 
-                pred = model.predict(X_test, batch_size=16000, verbose=0)
+                pred = model.predict(X_test, batch_size=10000, verbose=0)
                 predict = np.append(predict, pred, axis=0)
 
                 del X_test, pred
