@@ -1,17 +1,15 @@
-import numpy as np
+import math
 
-from keras.models import Model, Sequential
+from keras.models import Model
 from keras.layers import Conv1D, Dense
 from keras.layers import GRU, Bidirectional, Concatenate
 from keras.layers import GlobalMaxPooling1D, BatchNormalization, Dropout
 
-from keras.callbacks import Callback, EarlyStopping
+from keras.callbacks import Callback
 from keras.optimizers import AdamW
 
 from tqdm.auto import tqdm
 import keras.backend as K
-
-from keras.losses import CategoricalCrossentropy
 
 class CosineAnnealingScheduler(Callback):
     def __init__(self, steps=10, lr_max=1e-2, lr_min=1e-5):
@@ -21,7 +19,7 @@ class CosineAnnealingScheduler(Callback):
         self.lr_min = lr_min
         self.semigap = (lr_max - lr_min) / 2
     def on_epoch_begin(self, epoch, logs=None):
-        lr = self.lr_min + self.semigap*(1 + np.cos(np.pi*(0.5 + epoch/self.steps)))
+        lr = self.lr_min + self.semigap*(1 + math.cos(math.pi*(0.5 + epoch/self.steps)))
         K.set_value(self.model.optimizer.lr, lr)
 
 class TQDMProgressBar(Callback):
