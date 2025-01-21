@@ -3,6 +3,7 @@ __pycache__/
 
 data/
 test/
+*_w60s1/
 *.zip
 *.tar.*
 

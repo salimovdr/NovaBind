@@ -31,19 +31,7 @@ python encode_data.py
 ```
 
 ### Training
-
-**Step 3.** To start training, use the script `parallel_training.py`. The training process is the same for different types of experiments: for PBM and HTS experiments, three repetitions with seeds 0, 1, and 2 are run for each of the three folds. To specify the training mode, set the argument --type_exp, which can be either 'PBM' or 'HTS'. Note that training runs in parallel on the available graphics cards.  In both cases, if fewer than 9 GPUs are available, all available devices will be used, and tasks will be queued.
-
-We recommend running the following two commands in sequence, with the second one delayed until the first training stage is complete.
-
-```bash
-python parallel_training.py --type_exp PBM
-```
-```bash
-python parallel_training.py --type_exp HTS
-```
-
-The model weights are saved in the `models_PBM` and `models_HTS` folders, respectively. We have saved the model weights in this repository if you want to skip training and proceed directly to prediction.
+NA for SNP prediction.
 
 ### Prediction
 
