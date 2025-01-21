@@ -2,6 +2,7 @@ import subprocess as sp
 import random as rd
 import numpy as np
 import pandas as pd
+import os
 
 rd.seed(42)
 np.random.seed(42)
@@ -9,46 +10,28 @@ np.random.seed(42)
 from prep_utils import (pbm_prots,
                         hts_prots,
                         hts_used_cycles,
-                        fq2df,
-                        merge_pbm,
-                        merge_hts,
-                        fasta_to_df,
-                        k_fold_split)
+                        fasta_to_df)
 
 
-sp.run('mkdir pbm hts test', shell=True)
+sp.run('mkdir snp test', shell=True)
 
-# zip's extraction
-for dset in ['train', 'test']:
-    sp.run(f'unzip -q data/IBIS.{dset}_data.Final.v1.zip', shell=True)
-print('Archives are extracted')
+sp.run(f'unzip -q data/ibis_rSNP.zip -d snp', shell=True)
+print('Archive are extracted')
 
-for prot in pbm_prots:
-    folder = f'train/PBM/{prot}'
-    sp.run(f'mv {folder}/QNZS_*.tsv pbm/{prot}.tsv', shell=True)
-print('PBM train data are converted to csv')
 
-for prot, cycle in hts_used_cycles.items():
-    folder = f'train/HTS/{prot}'
-    sp.run(f'mv {folder}/{prot}_{cycle}_*.fastq.gz hts/{prot}.fq.gz',
-           shell=True)
-print('HTS train data are converted to csv')
+files = os.listdir('snp')
+files = [x for x in files if '@' in x]
 
-for exp in ['PBM', 'HTS', 'GHTS', 'CHS']:
-    df = fasta_to_df(f'{exp}_participants.fasta')
-    df.to_csv(f'test/{exp}.csv', index=False)
-print("All test data are converted to csv's")
+df = pd.DataFrame()
+for file in files:
+    path = f'snp/{file}'
+    sdf = fasta_to_df(path)
+    sdf['id'] = [f"{file.replace('.fasta', '')}-{i}" for i in sdf.id]
+    df = pd.concat([df, sdf], axis=0)
 
-# merge PBM's and split to folds
-df = merge_pbm()
-k_fold_split(df, exp='PBM')
-print('PBM are splitted to folds')
+df.to_csv('test/SNP.csv', index=False)
 
-# merge HTS's and split to folds
-sp.run('unpigz -f hts/*.gz', shell=True)
-df = merge_hts().sample(frac=1).reset_index(drop=True)
-k_fold_split(df, exp='HTS')
-print('HTS are splitted to folds')
+print("Data are converted to csv")
 
 # removing junk files
-sp.run('rm -r train pbm hts *.fasta *.bed', shell=True)
+sp.run('rm -r snp', shell=True)
