@@ -16,8 +16,7 @@ set_seed(42), set_device(device)
 from data_reading import read_dataset
 from architecture import build_model
 
-from predict_utils import (make_test_prediction,
-                           make_primary_prediction)
+from predict_utils import make_primary_prediction
 from keras.losses import CategoricalCrossentropy
 
 from tqdm.auto import trange
@@ -41,6 +40,4 @@ _ = model.fit(X, Y,
               verbose=0)
 
 # prediction
-make_test_prediction(model, exp, out_shape)
-
 make_primary_prediction(model, exp, out_shape)

@@ -26,40 +26,12 @@ _prots = {
 _pexp_ws = {
     'GHTS': (60, 1),
     'CHS': (60, 1),
+    'SNP': (60, 1),
 }
 
 
-def make_test_prediction(model, exp, out_shape):
-    sp.run(f'mkdir predict_{exp}', shell=True)
-    
-    df = pd.read_csv(f'test/{exp}.csv')
-    X_test = np.load(f'test/{exp}.npy')
-    X_test = tf.convert_to_tensor(X_test, dtype=tf.float32)
-
-    for f, s in _models[exp]:
-        fold = f'fold{f}'
-        seed = f'seed{s}'
-        model.load_weights(f'models_{exp}/{fold}_{seed}.keras')
-
-        pred = model.predict(X_test, batch_size=16000)
-        pred = pred.reshape(len(df), pred.shape[0]//len(df), out_shape).max(axis=1)
-
-        np.save(f'predict_{exp}/Y_pred_{f}{s}.npy', pred)
-
-    pred = np.load(f'predict_{exp}/Y_pred_00.npy')
-    for f, s in _models[exp]:
-        pred = pred + np.load(f'predict_{exp}/Y_pred_{f}{s}.npy')
-    pred = minmax_scale(pred).round(5)
-
-    df = df.join(pd.DataFrame(pred)).drop('seq', axis=1)
-    df.columns = ['id'] + _prots[exp]
-    df.to_csv(f'predict_{exp}.tsv', sep='\t', index=False)
-
-    print(f'{exp} prediction are made')
-
-
 def make_primary_prediction(model, exp, out_shape):
-    for pexp in ['GHTS', 'CHS']:
+    for pexp in ['SNP']:
         name = f'predict_{pexp}_on_{exp}'
         sp.run(f'mkdir {name}', shell=True)
 
