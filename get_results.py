@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import pandas as pd
 import subprocess as sp
@@ -13,19 +14,23 @@ df = df1.join(df2)
 
 
 df = df.reset_index()
-df['pos'] = df.id.map(lambda x: x.split('-')[1])
-df['prot'] = df.id.map(lambda x: x.split('-')[0].split('@')[1])
 df['exp'] = df.id.map(lambda x: x.split('-')[0].split('@')[0])
+df['prot'] = df.id.map(lambda x: x.split('-')[0].split('@')[1])
+df['pos'] = df.id.map(lambda x: x.split('-')[1])
+
 
 
 df = df[df.prot.isin(prots)]
 df['score'] = df.apply(lambda x: x[x['prot']], axis=1)
-df = df[['pos', 'prot', 'exp', 'score']]
+df = df[['exp', 'prot', 'pos', 'score']]
 
 
+folder = 'SalFroLabSNP'
+os.makedirs(folder, exist_ok=True)
 
-df.to_csv('predict_SNP.tsv', sep='\t')
-
-# sp.run('rm predict_*_on_*.tsv', shell=True)
-
-# sp.run('pigz --best *.tsv', shell=True)
+for (exp, prot), sdf in df.groupby(['exp', 'prot']):
+    sdf.score.to_csv(f'{folder}/{exp}@{prot}.txt', index=False, header=False)
+    
+df.to_csv(f'{folder}/concated.tsv', sep='\t', index=False)
+sp.run(f'zip -qr {folder} {folder}', shell=True)
+sp.run(f'rm -r {folder}', shell=True)
