@@ -1,6 +1,17 @@
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import argparse
+from tqdm.auto import trange
+
+from data_reading import read_dataset
+from architecture import build_model
+from predict_utils import make_primary_prediction
+from keras.losses import CategoricalCrossentropy
+
+from backend import set_seed, set_device
+set_seed(42), set_device(device)
+
+
 
 # read argument from command line
 parser = argparse.ArgumentParser()
@@ -9,17 +20,6 @@ parser.add_argument('--device', type=str, required=True)
 args = parser.parse_args()
 exp = args.type_exp
 device = args.device
-
-from backend import set_seed, set_device
-set_seed(42), set_device(device)
-
-from data_reading import read_dataset
-from architecture import build_model
-
-from predict_utils import make_primary_prediction
-from keras.losses import CategoricalCrossentropy
-
-from tqdm.auto import trange
 
 
 # initialization
