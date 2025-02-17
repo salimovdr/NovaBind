@@ -1,37 +1,36 @@
 # NovaBind
-The Salimov and Frolov Laboratory — winners in the international [Ibis](https://ibis.autosome.org) competition for predicting transcription factor binding levels to DNA sequences. We participated in predictions on genome sequences, utilizing synthetic data. More details about the architecture and methods used can be found in this [Google Document](https://clck.ru/3Ddv7i).
-
-Here we demonstrate the performance of **NovaBind** as we predicted the data in the competition.
+Ветка `snp` содержит упрощенную версию пайплайна для оценки силы связывания `TF`s и конвертацию датасета `rSNP` в совместимый с моделью формат. Это необходимо для оценки способности нашего подхода предсказывать эффект SNP.
 
 ## Environment
-We used a server with a GPU running Ubuntu 20.04.6. To set up the environment, please use the following command:
-
+Если еще не стоит окружение:
 ```bash
 conda env create -f environment.yml
 ```
+Активация:
+```bash
+conda activate Keras
+```
 
 ## Input data
-You can find the input data on the [Ibis site](https://ibis.autosome.org/download_data/final). The archives is too large, so we are not attaching it here. Please download it, unzip it, and place the `data` folder in the root directory where all the repository scripts are located.
+Что-то из этого может пригодиться:
+```bash
+cp /home/fds/ibis/NovaBind/data/*.zip .
+```
 
 ## Reproduction
 
 ### Data preprocessing
-**Step 1.** It is necessary to extract the files and convert them to a unified .csv format. For future model ensembling, we immediately split the data into folds. The `folds_PBM`, `folds_HTS` and `test` directories with the necessary data are created. 
-
-To run the script that does this, execute the following command in bash:
-
+Следующий скрипт разархивирует `data/ibis_rSNP.zip`, конвертирует `.fasta`s в `pd.DataFrame`s, отбросит нецелевые белки, сконкатенирует и сохранит в `test/SNP.csv`:  
 ```bash
 python prep_data.py
 ```
-
-**Step 2.** We are ready to split the folds into training and validation sets. DNA sequences are encoded using one-hot encoding. The complementary sequences are added to the data. For the data from the GHTS and CHS experiments, sequence segmentation is performed using a sliding window with stride of 1. These actions are performed in the `encode_data.py` script:
-
+Теперь можно нарезать сиквенсы с шагом 1 и окном 60:
 ```bash
 python encode_data.py
 ```
 
 ### Training
-NA for SNP prediction.
+Не применимо.
 
 ### Prediction
 
