@@ -12,17 +12,6 @@ pbm_prots = ['GCM1', 'MKX', 'MSANTD1', 'MYPOP',
 hts_prots = ['ZNF831', 'ZNF780B', 'ZNF721', 'ZNF500',
              'ZNF286B', 'ZBTB47', 'FIZ1', 'CREB3L3']
 
-hts_used_cycles = {
-    'CREB3L3': 'R1_C4',
-    'FIZ1': 'R0_C4',
-    'ZNF500': 'R0_C3',
-    'ZNF780B': 'R0_C3',
-    'ZNF831': 'R0_C4',
-    'ZNF286B': 'R0_C3',
-    'ZBTB47': 'R1_C4',
-    'ZNF721': 'R0_C3',
-}
-
 
 def fasta_to_df(path):
     '''Just for the simplest case!'''
