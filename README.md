@@ -28,7 +28,7 @@ python prep_data.py
 ```bash
 python encode_data.py
 ```
-В директорию `SNP_w60s1` будет сохранено 64 "бача"
+В директорию `SNP_w60s1` будет сохранено 64 "бача".
 
 ### Training
 Не применимо. Ожидается, что модели уже были обучены согласно пайплайну из ветки `full`. Веса уже должны лежать в `models_*`. Поскольку моделиь инициализируется методом ленивого костыля (одна эпоха обучения с последующей загрузкой весов) может пригодиться предподготовленный тренировочный сабсет:
@@ -44,7 +44,7 @@ python make_predict.py --device 1 --type_exp PBM
 ```bash
 python make_predict.py --device 3 --type_exp HTS
 ```
-Предсказания будут объеденены и сохранены в запрашиваемый формат (plain text files keeping the file names the same) а также в удобный `concated.tsv` и заархивированы в `folder_with_results_name.zip`:
+Предсказания будут объеденены и сохранены в запрашиваемый формат (`plain text files keeping the file names the same`) а также в удобный `concated.tsv` и заархивированы в `your_results_folder_name.zip`:
 ```bash
-python get_results.py folder_with_results_name
+python get_results.py your_results_folder_name
 ```
