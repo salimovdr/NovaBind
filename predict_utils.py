@@ -33,10 +33,12 @@ _pexp_ws = {
 
 def make_primary_prediction(model, exp, out_shape):
     for pexp in ['SNP']:
+        window, stride = _pexp_ws[pexp]
         name = f'predict_{pexp}_on_{exp}'
         os.makedirs(name, exist_ok=True)
         
-        window, stride = _pexp_ws[pexp]
+        # load test table with correct sequence id
+        df = pd.read_csv(f'test/{pexp}.csv')
         
         # iter by each model in ensemble 
         for f, s in _models[exp]:
@@ -68,8 +70,8 @@ def make_primary_prediction(model, exp, out_shape):
             predict = predict + np.load(f'{name}/Y_pred_{f}{s}.npy')
         predict = minmax_scale(predict).round(5)
 
-        # load test table with correct sequence id and join with them
-        df = pd.read_csv(f'test/{pexp}.csv')
+
+        # join prediction with sequence id and save
         df = df.join(pd.DataFrame(predict)).drop('seq', axis=1)
         df.columns = ['id'] + _prots[exp]
         df.to_csv(f'{name}.tsv', sep='\t', index=False)
