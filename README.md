@@ -20,7 +20,7 @@ cp /home/fds/ibis/NovaBind/data/*.zip .
 ## Reproduction
 
 ### Data preprocessing
-Следующий скрипт разархивирует `data/ibis_rSNP.zip`, конвертирует `.fasta's` в `pd.DataFrame's`, отбросит нецелевые белки, сконкатенирует для параллельных предсказаний и сохранит подготовленные сиквенсы в `test/SNP.csv`:  
+Следующий скрипт разархивирует `data/ibis_rSNP.zip`, сконвертирует `.fasta's` в `pd.DataFrame's`, отбросит нецелевые белки, сконкатенирует для параллельных предсказаний и сохранит подготовленные сиквенсы в `test/SNP.csv`:  
 ```bash
 python prep_data.py
 ```
