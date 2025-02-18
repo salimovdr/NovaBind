@@ -31,31 +31,20 @@ python encode_data.py
 В директорию `SNP_w60s1` будет сохранено 64 "бача"
 
 ### Training
-Не применимо. Ожидается, что модели уже были обучены согласно пайплайну из ветки `full`. Веса уже должны лежать в `models_*`. Может пригодиться предподготовленный тренировочный сабсет:
+Не применимо. Ожидается, что модели уже были обучены согласно пайплайну из ветки `full`. Веса уже должны лежать в `models_*`. Поскольку моделиь инициализируется методом ленивого костыля (одна эпоха обучения с последующей загрузкой весов) может пригодиться предподготовленный тренировочный сабсет:
 ```bash
-cp /home/fds/ibis/NovaBind/folds_* .
+cp -r /home/fds/ibis/NovaBind/folds_* .
 ```
 
 ### Prediction
-
-**Step 4.** To generate predictions, you need to run the script `make_predict.py` with the argument `--type_exp` set to 'PBM' or 'HTS', which specifies based on which experiments the prediction will be made.
-
-| Prediction | Based on         | Discipline   |
-|------------|------------------|--------------|
-| PBM        | PBM              | Secondary    |
-| GHTS       | PBM and HTS      | Primary      |
-| CHS        | PBM and HTS      | Primary      |
-| HTS        | HTS              | Secondary    |
-
-If you want to run predictions based on PBM or HTS in parallel, please specify the device number to perform the calculations on:
-
+Предсказания для белков `GCM1, MKX, MSANTD1, MYPOP, SP140L, TPRX1, ZFTA` будут сделаны на основании тренированной на `PBM` модели, а для белков `ZNF831, ZNF780B, ZNF721, ZNF500, ZNF286B, ZBTB47, FIZ1, CREB3L3` – на `HTS`. При этом оценены будут все сиквенсы для каждого белка (проще отбросить избыточные предсказания). Рекомендуется запускать предсказания параллельно в двух терминальных сессиях:
 ```bash
-python make_predict.py --device 0 --type_exp PBM
-python make_predict.py --device 1 --type_exp HTS
+python make_predict.py --device 1 --type_exp PBM
 ```
-
-As a result of predictions on different models, the sum of the predictions is calculated and min-max scaling is applied. To merge the prediction results, run the script:
-
 ```bash
-python get_results.py
+python make_predict.py --device 3 --type_exp HTS
+```
+Предсказания будут объеденены и сохранены в запрашиваемый формат (plain text files keeping the file names the same) а также в удобный `concated.tsv` и заархивированы в `folder_with_results_name.zip`:
+```bash
+python get_results.py folder_with_results_name
 ```
