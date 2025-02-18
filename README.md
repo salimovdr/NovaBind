@@ -44,7 +44,7 @@ python make_predict.py --device 1 --type_exp PBM
 ```bash
 python make_predict.py --device 3 --type_exp HTS
 ```
-Предсказания будут объеденены и сохранены в запрашиваемый формат (`plain text files keeping the file names the same`) а также в удобный `concated.tsv` и заархивированы в `your_results_folder_name.zip`:
+Предсказания будут объеденены и сохранены в запрашиваемой форме (`plain text files keeping the file names the same`), а также в удобный `concated.tsv`, и заархивированы в `your_results_folder_name.zip`:
 ```bash
 python get_results.py your_results_folder_name
 ```
