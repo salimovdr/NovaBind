@@ -32,12 +32,5 @@ else:
 # init model
 model = build_model(loss, out_shape)
 
-# determine layer shapes by one-epoch training
-X, Y = read_dataset(exp, f'folds_{exp}/fold0', small=True)
-_ = model.fit(X, Y,
-              batch_size=16000,
-              epochs=1,
-              verbose=0)
-
-# predict
+# predict by averaging ensemble
 make_primary_prediction(model, exp, out_shape)

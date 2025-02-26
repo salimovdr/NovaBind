@@ -35,41 +35,37 @@ class TQDMProgressBar(Callback):
     def on_train_end(self, logs=None):
         self.tqdm_bar.close()
 
-
 class NeuralNet(Model):
-    def __init__(
-        self,
-        output_shape,
-        kernel_a=7, kernel_b=15,
-        filters=80, filters_del=4,
-        gru_units=325,
-        dens_units=500, dens_del=2,
-        ):
+    def __init__(self, output_shape):
         super().__init__()
-        self.conv_a = Conv1D(kernel_size=kernel_a, filters=filters,
-                             use_bias=False,
-                             padding='same',
+        
+        self.conv_a = Conv1D(input_dim=4,
+                             kernel_size=7, filters=80,
+                             use_bias=False, padding='same',
                              activation='relu')
-        self.conv_b = Conv1D(kernel_size=kernel_b, filters=filters//filters_del,
-                             use_bias=False,
-                             padding='same',
+        self.conv_b = Conv1D(input_dim=4,
+                             kernel_size=15, filters=80//4,
+                             use_bias=False, padding='same',
                              activation='relu')
         self.concat_i = Concatenate()
-        
+
         self.bigru = Bidirectional(
-            GRU(units=gru_units, return_sequences=True),
+            GRU(input_dim=104, units=325,
+                return_sequences=True),
             merge_mode='sum',
         )
         self.grunorm = BatchNormalization()
         self.concat_j = Concatenate()
-        
+
         self.mpool = GlobalMaxPooling1D()
-        self.dens_i = Dense(units=dens_units,
+        self.dens_i = Dense(input_dim=425,
+                            units=500,
                             activation='silu')
-        self.dens_j = Dense(units=dens_units//dens_del,
+        self.dens_j = Dense(input_dim=500,
+                            units=500//2,
                             activation='silu')
         self.lin = Dense(units=output_shape)
-    
+
     def call(self, x):
         a, b = self.conv_a(x), self.conv_b(x)
         xab = self.concat_i([x, a, b])
@@ -84,5 +80,6 @@ def build_model(loss, output_shape, lr=0.01, wd=0.45):
     opt = AdamW(learning_rate=lr,
                 weight_decay=wd)
     model.compile(optimizer=opt, loss=loss)
+    model.build((None, 60, 4)) 
     return model
 
