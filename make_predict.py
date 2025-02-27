@@ -3,9 +3,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import argparse
 from tqdm.auto import trange
 
-from data_reading import read_dataset
 from architecture import build_model
-from predict_utils import make_primary_prediction
+from predict_utils import make_snp_prediction
 from keras.losses import CategoricalCrossentropy
 from backend import set_seed, set_device
 
@@ -33,4 +32,4 @@ else:
 model = build_model(loss, out_shape)
 
 # predict by averaging ensemble
-make_primary_prediction(model, exp, out_shape)
+make_snp_prediction(model, exp, out_shape)

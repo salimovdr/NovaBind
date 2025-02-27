@@ -80,6 +80,6 @@ def build_model(loss, output_shape, lr=0.01, wd=0.45):
     opt = AdamW(learning_rate=lr,
                 weight_decay=wd)
     model.compile(optimizer=opt, loss=loss)
-    model.build((None, 60, 4)) 
+    model.build((None, 59, 4)) 
     return model
 
