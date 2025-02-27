@@ -33,11 +33,3 @@ def complement(seq):
                                         ).replace('G', 'c'
                                                   ).replace('C', 'g')
     return seq.upper()[::-1]
-
-
-def get_strided(seq, stride, window):
-    n = 1 + (len(seq) - window) // stride
-    return [seq[i*stride : i*stride+window] for i in range(n)]
-    
-def flatten(xss):
-    return [x for xs in xss for x in xs]
