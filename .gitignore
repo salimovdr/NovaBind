@@ -4,6 +4,8 @@ __pycache__/
 data/
 folds_*/
 test/
+predict_*
+
 *_w60s1/
 *.zip
 *.tar.*
