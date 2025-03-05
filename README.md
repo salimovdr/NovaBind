@@ -14,7 +14,7 @@ conda activate Keras
 ## Input data
 Ожидается, что в директории `data` будет находиться по крайней мере архив с тестовым `rSNP` датасетом. Можно загрузить:
 ```bash
-cp /home/fds/ibis/NovaBind/data/ibis_rSNP.zip.zip .
+cp /home/fds/ibis/NovaBind/data/ibis_rSNP.zip .
 ```
 
 ## Reproduction
